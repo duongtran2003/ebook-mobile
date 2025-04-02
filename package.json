@@ -6,17 +6,36 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "check-ts": "tsc --noEmit",
+    "check-lint": "eslint './src/**/*{js,ts,jsx,tsx}'",
+    "lint": "npm run check-ts && npm run check-lint"
   },
   "dependencies": {
+    "@expo/metro-runtime": "~4.0.1",
+    "@react-native-masked-view/masked-view": "^0.3.2",
+    "@react-navigation/native": "^7.1.0",
+    "@react-navigation/stack": "^7.2.4",
     "expo": "~52.0.42",
     "expo-status-bar": "~2.0.1",
+    "nativewind": "^4.1.23",
     "react": "18.3.1",
-    "react-native": "0.76.8"
+    "react-dom": "18.3.1",
+    "react-native": "0.76.8",
+    "react-native-gesture-handler": "^2.25.0",
+    "react-native-reanimated": "^3.17.2",
+    "react-native-safe-area-context": "^4.14.1",
+    "react-native-screens": "^4.10.0",
+    "react-native-web": "~0.19.13",
+    "tailwindcss": "3.4.17"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
+    "@trivago/prettier-plugin-sort-imports": "^5.2.2",
     "@types/react": "~18.3.12",
+    "eslint": "^8.57.0",
+    "eslint-config-expo": "~8.0.1",
+    "prettier": "^3.5.3",
     "typescript": "^5.3.3"
   },
   "private": true
