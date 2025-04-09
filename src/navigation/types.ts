@@ -1,3 +1,5 @@
 export type RootStackParamList = {
-  LoginView: undefined;
+  // LoginView: undefined;
+  // HomeScreen: undefined;
+  // RankingView: undefined;
 };

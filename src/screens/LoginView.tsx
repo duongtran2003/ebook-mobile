@@ -1,18 +1,18 @@
-import { useNavigation } from '@react-navigation/native'
-import { StackNavigationProp } from '@react-navigation/stack'
-import { Text, View } from 'react-native'
-import { RootStackParamList } from 'src/navigation/types'
+// import { useNavigation } from '@react-navigation/native'
+// import { StackNavigationProp } from '@react-navigation/stack'
+// import { Text, View } from 'react-native'
+// import { RootStackParamList } from 'src/navigation/types'
 
-type LoginViewNavigationProp = StackNavigationProp<RootStackParamList, 'LoginView'>
+// type LoginViewNavigationProp = StackNavigationProp<RootStackParamList, 'LoginView'>
 
-const LoginView = () => {
-  const navigation = useNavigation<LoginViewNavigationProp>()
+// const LoginView = () => {
+//   const navigation = useNavigation<LoginViewNavigationProp>()
 
-  return (
-    <View>
-      <Text> Login view goes here </Text>
-    </View>
-  )
-}
+//   return (
+//     <View>
+//       <Text> Login view goes here </Text>
+//     </View>
+//   )
+// }
 
-export default LoginView;
+// export default LoginView;
