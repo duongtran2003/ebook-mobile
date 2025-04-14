@@ -11,9 +11,13 @@ export default function HomeNavigator() {
   const Stack = createStackNavigator<HomeStackParamList>()
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true }}>
       <Stack.Screen options={{ title: 'Trang chủ' }} name="Home" component={HomeScreen} />
-      <Stack.Screen options={{ title: 'Chi tiết sách' }} name="BookDetail" component={ShowDetailBookScreen} />
+      <Stack.Screen
+        options={{ title: 'Chi tiết sách' }}
+        name="BookDetail"
+        component={ShowDetailBookScreen}
+      />
     </Stack.Navigator>
   )
 }
