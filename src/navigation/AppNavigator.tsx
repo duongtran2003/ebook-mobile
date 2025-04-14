@@ -110,7 +110,7 @@ import HomeScreen from 'src/screens/HomeScreen';
 import HistoryScreen from 'src/screens/HistoryScreen';
 import LogoutScreen from 'src/screens/LogoutScreen';
 import RankingView from 'src/screens/RankingView';
-
+import ShowDetailBookScreen from 'src/screens/ShowDetailBookScreen';
 const Drawer = createDrawerNavigator();
 
 export default function AppNavigator() {
