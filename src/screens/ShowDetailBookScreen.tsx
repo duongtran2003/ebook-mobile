@@ -1,260 +1,119 @@
-import React, { useState, useEffect } from 'react'
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-  ListRenderItemInfo
-} from 'react-native'
-import { useNavigation, NavigationProp, useRoute } from '@react-navigation/native'
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-type Book = {
-  id: string
-  title: string
-  author: string
-  image: any
-  rating: number
-  price: string
-}
-
-const booksDataMonth: Book[] = [
-  /* dữ liệu top tháng như bạn đã có */
-]
-const booksDataWeek: Book[] = [
-  /* dữ liệu top tuần như bạn đã có */
-]
-const booksDataDay: Book[] = [
-  /* dữ liệu top ngày như bạn đã có */
-]
-
-const ITEMS_PER_PAGE = 5
-
-const ShowDetailBookScreen: React.FC = () => {
-  const [selectedTab, setSelectedTab] = useState<'month' | 'week' | 'day'>('month')
-  const [currentPage, setCurrentPage] = useState<number>(1)
-  const [data, setData] = useState<Book[]>(booksDataMonth.slice(0, ITEMS_PER_PAGE))
-  const [totalPages, setTotalPages] = useState<number>(
-    Math.ceil(booksDataMonth.length / ITEMS_PER_PAGE)
-  )
-
-  const navigation = useNavigation<NavigationProp<any>>()
-
-  const route = useRoute();
-  const { bookId } = route.params;
-
-  useEffect(() => {
-    let source: Book[] = []
-    if (selectedTab === 'month') source = booksDataMonth
-    else if (selectedTab === 'week') source = booksDataWeek
-    else source = booksDataDay
-
-    setTotalPages(Math.ceil(source.length / ITEMS_PER_PAGE))
-    setData(source.slice(0, ITEMS_PER_PAGE))
-  }, [selectedTab])
-
-  const handleTabChange = (tab: 'month' | 'week' | 'day') => {
-    setSelectedTab(tab)
-    setCurrentPage(1)
-  }
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page)
-    const start = (page - 1) * ITEMS_PER_PAGE
-    const end = start + ITEMS_PER_PAGE
-
-    let source: Book[] = []
-    if (selectedTab === 'month') source = booksDataMonth
-    else if (selectedTab === 'week') source = booksDataWeek
-    else source = booksDataDay
-
-    setData(source.slice(start, end))
-  }
-
-  const renderPagination = () => {
-    const maxPagesToShow = 3
-    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2))
-    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1)
-
-    if (endPage === totalPages) {
-      startPage = Math.max(1, totalPages - maxPagesToShow + 1)
-    }
-
-    const pages = []
-    if (currentPage > 1) {
-      pages.push(
-        <TouchableOpacity key="prev" onPress={() => handlePageChange(currentPage - 1)}>
-          <Text style={styles.footerText}>{'<'}</Text>
-        </TouchableOpacity>
-      )
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(
-        <TouchableOpacity key={i} onPress={() => handlePageChange(i)}>
-          <Text style={[styles.footerText, currentPage === i && { fontWeight: 'bold' }]}>{i}</Text>
-        </TouchableOpacity>
-      )
-    }
-
-    if (endPage < totalPages) {
-      pages.push(
-        <Text key="dots" style={styles.footerText}>
-          ...
-        </Text>
-      )
-    }
-
-    if (currentPage < totalPages) {
-      pages.push(
-        <TouchableOpacity key="next" onPress={() => handlePageChange(currentPage + 1)}>
-          <Text style={styles.footerText}>{'>'}</Text>
-        </TouchableOpacity>
-      )
-    }
-
-    return pages
-  }
-
-  const handleNavigateHome = () => {
-    navigation.navigate('Trang chủ')
-  }
-
-  const renderItem = ({ item }: ListRenderItemInfo<Book>) => (
-    <View style={styles.itemContainer}>
-      <TouchableOpacity onPress={handleNavigateHome}>
-        <Image source={item.image} style={styles.image} />
-      </TouchableOpacity>
-      <View style={styles.itemDetails}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.author}>Tác giả: {item.author}</Text>
-        <Text style={styles.rating}>Đánh giá: {item.rating}</Text>
-        <Text style={styles.price}>Lượt xem: {item.price}</Text>
-      </View>
-    </View>
-  )
+const BookReadingScreen = () => {
+  const currentPage = 155;
+  const totalPages = 200;
 
   return (
     <View style={styles.container}>
-      <View style={styles.breadcrumb}>
-        <TouchableOpacity onPress={handleNavigateHome}>
-          <Text style={styles.breadcrumbLink}>Trang chủ</Text>
+      {/* Header */}
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Ionicons name="chevron-back" size={24} color="#fff" />
         </TouchableOpacity>
-        <Text style={styles.breadcrumbArrow}> → </Text>
-        <Text style={styles.breadcrumbCurrent}>Bảng xếp hạng</Text>
+        <Text style={styles.headerTitle}>Đọc sách</Text>
+
+        {/* Placeholder để căn giữa tiêu đề */}
+        <View style={{ width: 24 }} />
       </View>
 
-      <View style={styles.tabsContainer}>
-        {(['month', 'week', 'day'] as const).map((tab) => (
-          <TouchableOpacity key={tab} onPress={() => handleTabChange(tab)} style={styles.tabButton}>
-            <Text style={selectedTab === tab ? styles.activeTab : styles.inactiveTab}>
-              {tab === 'month' ? 'Top tháng' : tab === 'week' ? 'Top tuần' : 'Top ngày'}
-            </Text>
+      <View style={styles.contentContainer}>
+        {/* Book Title */}
+        <Text style={styles.bookTitle}>The Arsonist</Text>
+
+        {/* Book Content */}
+        <ScrollView style={styles.scrollArea}>
+          <Text style={styles.paragraph}>
+            Lorem ipsum dolor sit amet, consectetur rygu adipiscing elit, sed do eiusmodiuiuij temporuiuiq
+            incididunt ut labore et dolores magna aliqua. Ut enim ad minim veniam, its quis nostrudjj poo
+            exercitation ullamcomoum laboris nisi ut aliquip ex ea commodookolom consequat. Duis aute irure
+            dolor inputs oili reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            Excepteur sint occaecat cupidatat non proident, sunt inputs culpa qui officia deserunt mollit
+            anim idestim laborum.
+          </Text>
+          <Text style={styles.paragraph}>
+            Lorem ipsum dolor sit amet, consecteturu rygu adipiscing elit, sed do eiusmodiuiuij temporuiuiq
+            incididunt ut labore et dolores magna aliqua. Ut enim ad minim veniam, its quis nostrudjj poo
+            exercitation ullamcomoum laboris nisi ut aliquip ex ea commodookolom consequat.
+          </Text>
+        </ScrollView>
+
+        {/* Pagination + Next */}
+        <View style={styles.bottomContainer}>
+          <Text style={styles.pageCount}>{`${currentPage}/${totalPages}`}</Text>
+          <TouchableOpacity style={styles.nextButton}>
+            <Text style={styles.nextButtonText}>Tiếp</Text>
           </TouchableOpacity>
-        ))}
+        </View>
       </View>
-
-      <FlatList
-        data={data}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        style={styles.flatList}
-      />
-
-      <View style={styles.footer}>{renderPagination()}</View>
     </View>
-  )
-}
+  );
+};
 
-export default ShowDetailBookScreen
+export default BookReadingScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f7f7f7',
-    marginTop: 10
+    backgroundColor: '#eee',
   },
-  breadcrumb: {
+  header: {
+    height: 60,
+    backgroundColor: '#f79433',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 10
+    paddingHorizontal: 12,
+    justifyContent: 'space-between',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
-  breadcrumbLink: {
-    fontSize: 15,
-    color: '#333',
-    fontWeight: '500',
-    marginLeft: 10
+  headerTitle: {
+    fontSize: 18,
+    color: '#fff',
+    fontWeight: '600',
   },
-  breadcrumbArrow: {
-    fontSize: 15,
-    marginHorizontal: 5,
-    color: '#888'
-  },
-  breadcrumbCurrent: {
-    fontSize: 15,
-    color: '#007bff',
-    fontWeight: '500'
-  },
-  tabsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginBottom: 10
-  },
-  tabButton: {
-    padding: 10
-  },
-  activeTab: {
-    color: '#007bff',
-    fontWeight: 'bold'
-  },
-  inactiveTab: {
-    color: '#555'
-  },
-  itemContainer: {
-    flexDirection: 'row',
-    margin: 10,
+  contentContainer: {
+    flex: 1,
     backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 10,
-    elevation: 2
+    margin: 16,
+    padding: 16,
+    borderRadius: 12,
+    elevation: 4,
   },
-  image: {
-    width: 80,
-    height: 100,
-    borderRadius: 4
-  },
-  itemDetails: {
-    marginLeft: 10,
-    justifyContent: 'center'
-  },
-  title: {
+  bookTitle: {
+    fontSize: 18,
     fontWeight: 'bold',
-    fontSize: 16
+    textAlign: 'center',
+    marginBottom: 12,
   },
-  author: {
+  scrollArea: {
+    flex: 1,
+    marginBottom: 16,
+  },
+  paragraph: {
     fontSize: 14,
-    color: '#666'
+    lineHeight: 22,
+    marginBottom: 12,
+    textAlign: 'justify',
   },
-  rating: {
-    fontSize: 14,
-    color: '#444'
-  },
-  price: {
-    fontSize: 14,
-    color: '#222'
-  },
-  flatList: {
-    marginBottom: 20
-  },
-  footer: {
+  bottomContainer: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 15
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  footerText: {
-    marginHorizontal: 8,
-    fontSize: 16,
-    color: '#007bff'
-  }
-})
+  pageCount: {
+    color: '#888',
+  },
+  nextButton: {
+    backgroundColor: '#1e90ff',
+    paddingHorizontal: 20,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  nextButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+});

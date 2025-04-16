@@ -16,6 +16,9 @@ const { width } = Dimensions.get('window');
 
 export default function HomeScreen() {
   const [searchFocused, setSearchFocused] = useState(false);
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
+
   const navigation = useNavigation();
 
   const searchHistory = ['Harry Potter', 'Kinh dị', 'J.K. Rowling', 'Truyện tranh'];
@@ -61,6 +64,52 @@ export default function HomeScreen() {
         </View>
       )}
 
+      {/* Overlay Filter */}
+      {filterVisible && (
+        <View style={styles.overlay}>
+          <View style={styles.overlayContent}>
+            <Text style={{ fontSize: 12, color: '#999', marginBottom: 8 }}>Bộ lọc</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}>
+              <TouchableOpacity onPress={() => setFilterVisible(false)} style={{ paddingRight: 8 }}>
+                <Ionicons name="arrow-back" size={20} color="#333" />
+              </TouchableOpacity>
+              <Text style={{ fontSize: 20, fontWeight: '600', color: '#999' }}>thể loại</Text>
+            </View>
+
+            {genres.map((genre, idx) => (
+              <TouchableOpacity
+                key={idx}
+                onPress={() => setSelectedGenre(genre)}
+                style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 12 }}
+              >
+                <Ionicons
+                  name={selectedGenre === genre ? 'checkmark-circle' : 'ellipse-outline'}
+                  size={20}
+                  color="#888"
+                  style={{ marginRight: 8 }}
+                />
+                <Text style={{ fontSize: 16 }}>{genre}</Text>
+              </TouchableOpacity>
+            ))}
+
+            <TouchableOpacity
+              onPress={() => setFilterVisible(false)}
+              style={{
+                position: 'absolute',
+                bottom: 16,
+                right: 16,
+                backgroundColor: '#000',
+                padding: 10,
+                borderRadius: 20
+              }}
+            >
+              <Ionicons name="arrow-forward" size={18} color="#fff" />
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
+
+      {/* Main UI */}
       <ScrollView style={{ flex: 1, backgroundColor: '#fff' }} keyboardShouldPersistTaps="handled">
         <View style={{ padding: 16 }}>
           {/* Header */}
@@ -68,15 +117,20 @@ export default function HomeScreen() {
             <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Tìm kiếm</Text>
           </View>
 
-          {/* SearchBar bình thường */}
-          <TouchableOpacity
-            style={styles.searchBar}
-            onPress={() => setSearchFocused(true)}
-            activeOpacity={1}
-          >
-            <Ionicons name="search" size={20} color="#888" style={{ marginRight: 8 }} />
-            <Text style={{ color: '#888' }}>Search by Title, Author, Genre</Text>
-          </TouchableOpacity>
+          {/* SearchBar */}
+          <View style={styles.searchBar}>
+            <TouchableOpacity
+              onPress={() => setSearchFocused(true)}
+              style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}
+              activeOpacity={1}
+            >
+              <Ionicons name="search" size={20} color="#888" style={{ marginRight: 8 }} />
+              <Text style={{ color: '#888' }}>Search by Title, Author, Genre</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setFilterVisible(true)}>
+              <Ionicons name="filter-outline" size={20} color="#888" />
+            </TouchableOpacity>
+          </View>
 
           {/* Banner */}
           <Image
@@ -146,7 +200,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     alignItems: 'center',
-    marginBottom: 16
+    marginBottom: 16,
+    justifyContent: 'space-between',
   },
   overlay: {
     position: 'absolute',
@@ -163,7 +218,8 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOpacity: 0.1,
     shadowRadius: 10,
-    elevation: 8
+    elevation: 8,
+    paddingBottom: 60
   },
   searchRow: {
     flexDirection: 'row',
