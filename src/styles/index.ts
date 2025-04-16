@@ -5,6 +5,8 @@ export const colors = {
   orange01: '#E24E0F',
   orange02: '#DD2323',
   orange03: '#d32f2f',
+  blue01: '#4B69CD',
+  green01: '#157D00',
 }
 
 export const font = {
@@ -13,6 +15,6 @@ export const font = {
     small: 16,
     normal: 20,
     large: 24,
-    veryLarge: 28,
+    veryLarge: 28
   }
 }

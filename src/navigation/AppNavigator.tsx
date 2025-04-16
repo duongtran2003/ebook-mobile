@@ -80,6 +80,7 @@ export default function AppNavigator({ onLogout }: props) {
         <Drawer.Screen name="Trang chủ" component={HomeNavigator} />
         <Drawer.Screen name="Bảng xếp hạng" component={RankingView} />
         <Drawer.Screen name="Lịch sử" component={HistoryScreen} />
+        <Drawer.Screen name="Hồ sơ" component={HistoryScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
