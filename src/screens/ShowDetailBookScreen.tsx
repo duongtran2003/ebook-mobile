@@ -94,7 +94,7 @@ const ShowDetailBookScreen: React.FC = () => {
             <Text style={styles.infoText}>Ngày xuất bản: 08/04/2024</Text>
             <Text style={styles.infoText}>Nhà xuất bản: NXB Văn Học</Text>
           </View>
-          <TouchableOpacity style={styles.reviewsButton}>
+          <TouchableOpacity style={styles.reviewsButton} onPress={() => navigation.navigate('Review')}>
             <Text style={styles.reviewsButtonText}>Xem tất cả đánh giá</Text>
           </TouchableOpacity>
         </View>
