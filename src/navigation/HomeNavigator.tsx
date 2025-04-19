@@ -13,7 +13,11 @@ export default function HomeNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen options={{ title: 'Trang chủ' }} name="Home" component={HomeScreen} />
-      <Stack.Screen options={{ title: 'Chi tiết sách' }} name="BookDetail" component={ShowDetailBookScreen} />
+      <Stack.Screen
+        options={{ title: 'Chi tiết sách', headerShown: false }}
+        name="BookDetail"
+        component={ShowDetailBookScreen}
+      />
     </Stack.Navigator>
   )
 }
