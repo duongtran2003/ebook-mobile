@@ -72,7 +72,10 @@ export default function BookReviewScreen() {
           </View>
           <View style={styles.reviewRow}>
             <Text style={styles.subText}>4 đánh giá</Text>
-            <TouchableOpacity style={styles.reviewButton}>
+            <TouchableOpacity
+              style={styles.reviewButton}
+              onPress={() => navigation.navigate('Feedback')}
+            >
               <FontAwesome name="commenting-o" size={16} color="#333" />
               <Text style={styles.reviewButtonText}> Đánh giá</Text>
             </TouchableOpacity>

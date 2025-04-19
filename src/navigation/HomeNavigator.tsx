@@ -1,4 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
+import BookFeedBackScreen from 'src/screens/BookFeedbackScreen'
 import BookReviewScreen from 'src/screens/BookReviewScreen'
 import HomeScreen from 'src/screens/HomeScreen'
 import PreviewScreen from 'src/screens/PreviewScreen'
@@ -9,6 +10,7 @@ export type HomeStackParamList = {
   BookDetail: { bookId: string }
   Preview: undefined
   Review: undefined
+  Feedback: undefined
 }
 
 export default function HomeNavigator() {
@@ -32,6 +34,12 @@ export default function HomeNavigator() {
         options={{ title: 'Đánh giá sách', headerShown: false }}
         name="Review"
         component={BookReviewScreen}
+      />
+
+      <Stack.Screen
+        options={{ title: 'Đánh giá', headerShown: false }}
+        name="Feedback"
+        component={BookFeedBackScreen}
       />
     </Stack.Navigator>
   )
