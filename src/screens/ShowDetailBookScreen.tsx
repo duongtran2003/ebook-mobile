@@ -48,7 +48,10 @@ const ShowDetailBookScreen: React.FC = () => {
 
         {/* Action Buttons */}
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.previewButton}>
+          <TouchableOpacity
+            style={styles.previewButton}
+            onPress={() => navigation.navigate('Preview')}
+          >
             <Text style={styles.previewButtonText}>Giới thiệu</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.readButton}>
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
-    marginTop: 20
+    marginTop: 25
   },
   infoContainer: {
     flex: 1

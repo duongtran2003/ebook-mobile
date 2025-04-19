@@ -1,10 +1,12 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import HomeScreen from 'src/screens/HomeScreen'
+import PreviewScreen from 'src/screens/PreviewScreen'
 import ShowDetailBookScreen from 'src/screens/ShowDetailBookScreen'
 
 export type HomeStackParamList = {
   Home: undefined
   BookDetail: { bookId: string }
+  Preview: undefined
 }
 
 export default function HomeNavigator() {
@@ -17,6 +19,11 @@ export default function HomeNavigator() {
         options={{ title: 'Chi tiết sách', headerShown: false }}
         name="BookDetail"
         component={ShowDetailBookScreen}
+      />
+      <Stack.Screen
+        options={{ title: 'Giới thiệu', headerShown: false }}
+        name="Preview"
+        component={PreviewScreen}
       />
     </Stack.Navigator>
   )
