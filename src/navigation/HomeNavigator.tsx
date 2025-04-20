@@ -3,6 +3,7 @@ import BookFeedBackScreen from 'src/screens/BookFeedBackScreen'
 import BookReadingScreen from 'src/screens/BookReadingScreen'
 import BookReviewScreen from 'src/screens/BookReviewScreen'
 import HomeScreen from 'src/screens/HomeScreen'
+import NoteScreen from 'src/screens/NoteScreen'
 import PreviewScreen from 'src/screens/PreviewScreen'
 import ShowDetailBookScreen from 'src/screens/ShowDetailBookScreen'
 
@@ -13,6 +14,7 @@ export type HomeStackParamList = {
   Review: undefined
   Feedback: undefined
   BookReading: undefined
+  NoteScreen: undefined
 }
 
 export default function HomeNavigator() {
@@ -48,6 +50,12 @@ export default function HomeNavigator() {
         options={{ title: 'Đọc sách', headerShown: false }}
         name="BookReading"
         component={BookReadingScreen}
+      />
+
+      <Stack.Screen
+        options={{ title: 'Ghi chú', headerShown: false }}
+        name="NoteScreen"
+        component={NoteScreen}
       />
     </Stack.Navigator>
   )
