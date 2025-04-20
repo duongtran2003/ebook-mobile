@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default ReviewScreen
+export default BookFeedBackScreen

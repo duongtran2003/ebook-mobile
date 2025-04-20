@@ -1,5 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack'
-import BookFeedBackScreen from 'src/screens/BookFeedbackScreen'
+import BookFeedBackScreen from 'src/screens/BookFeedBackScreen'
 import BookReviewScreen from 'src/screens/BookReviewScreen'
 import HomeScreen from 'src/screens/HomeScreen'
 import PreviewScreen from 'src/screens/PreviewScreen'
