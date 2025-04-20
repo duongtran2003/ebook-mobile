@@ -59,7 +59,10 @@ export default function BookReviewScreen() {
             resizeMode="contain"
           />
 
-          <TouchableOpacity style={styles.readButton}>
+          <TouchableOpacity
+            style={styles.readButton}
+            onPress={() => navigation.navigate('BookReading')}
+          >
             <Text style={styles.readButtonText}>Đọc sách</Text>
           </TouchableOpacity>
         </LinearGradient>
