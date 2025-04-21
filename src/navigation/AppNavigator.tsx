@@ -16,12 +16,15 @@ import {
 
 import HomeScreen from 'src/screens/HomeScreen';
 import HistoryScreen from 'src/screens/HistoryScreen';
-import LogoutScreen from 'src/screens/LogoutScreen';
 import RankingView from 'src/screens/RankingView';
 import HomeNavigator from './HomeNavigator';
 const Drawer = createDrawerNavigator();
 
-export default function AppNavigator() {
+interface props {
+  onLogout: () => void,
+}
+
+export default function AppNavigator({ onLogout }: props) {
   const [modalVisible, setModalVisible] = useState(false);
   const navigationRef = React.useRef();
 
@@ -50,7 +53,7 @@ export default function AppNavigator() {
             <TouchableOpacity
               onPress={() => {
                 setModalVisible(false);
-                navigationRef.current?.navigate('Logout');
+                onLogout();
               }}
               style={styles.logoutButton}
             >
@@ -77,7 +80,7 @@ export default function AppNavigator() {
         <Drawer.Screen name="Trang chủ" component={HomeNavigator} />
         <Drawer.Screen name="Bảng xếp hạng" component={RankingView} />
         <Drawer.Screen name="Lịch sử" component={HistoryScreen} />
-        <Drawer.Screen name="Logout" component={LogoutScreen} />
+        <Drawer.Screen name="Hồ sơ" component={HistoryScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
