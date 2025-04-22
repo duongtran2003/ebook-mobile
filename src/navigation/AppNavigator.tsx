@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  NavigationContainer,
-  useNavigation,
+  NavigationContainer
 } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import {
@@ -18,21 +17,55 @@ import HomeScreen from 'src/screens/HomeScreen';
 import HistoryScreen from 'src/screens/HistoryScreen';
 import RankingView from 'src/screens/RankingView';
 import HomeNavigator from './HomeNavigator';
+import { getAccessToken } from 'src/utils/storage';
+import { API_URL } from 'src/environment';
+
 const Drawer = createDrawerNavigator();
 
-interface props {
-  onLogout: () => void,
+interface Props {
+  onLogout: () => void;
 }
 
-export default function AppNavigator({ onLogout }: props) {
+export default function AppNavigator({ onLogout }: Props) {
   const [modalVisible, setModalVisible] = useState(false);
-  const navigationRef = React.useRef();
+  const [username, setUsername] = useState('...');
+  const navigationRef = useRef(null);
 
-  // Header Right with Avatar + Modal
+  // Gọi API lấy thông tin người dùng
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = await getAccessToken();
+        if (!token) return;
+
+        const response = await fetch(`${API_URL}/api/users/profile`, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          setUsername(data.username || 'Người dùng'); // fallback nếu API không có name
+        } else {
+          console.error('Không thể lấy thông tin người dùng');
+        }
+      } catch (error) {
+        console.error('Lỗi khi lấy thông tin người dùng:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
+
+  // Header hiển thị tên và avatar
   const HeaderRight = () => (
     <View style={styles.headerRightContainer}>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Text style={styles.username}>Long</Text>
+        <Text style={styles.username}>{username}</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <Image
@@ -41,7 +74,6 @@ export default function AppNavigator({ onLogout }: props) {
         />
       </TouchableOpacity>
 
-      {/* Modal menu hiển thị khi click ảnh */}
       <Modal
         transparent={true}
         animationType="fade"
@@ -122,4 +154,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
-

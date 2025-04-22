@@ -72,14 +72,15 @@ const LoginScreen = ({ onLogin }: props) => {
   }
 
   const validatePassword = () => {
-    if (!credentials.password.trim()) {
-      setErrors((prev) => ({ ...prev, password: 'Nhập mật khẩu' }))
+    const validatePasswordRes = validator.validatePassword(credentials.password)
+    if (!validatePasswordRes.isValid) {
+      setErrors((prev) => ({ ...prev, password:validatePasswordRes.message}))
       return false;
     }
 
     if (view === 'Register') {
       if (credentials.confirmPassword !== credentials.password) {
-        setErrors((prev) => ({ ...prev, confirmPassword: 'Nhập mật khẩu' }))
+        setErrors((prev) => ({ ...prev, confirmPassword: 'Mật khẩu xác nhận không khớp' }))
         return false;
       }
     }
@@ -123,11 +124,6 @@ const LoginScreen = ({ onLogin }: props) => {
   }
 
   const handleLogin = async () => {
-    const isValid = validateEmail() && validatePassword();
-    if (!isValid) {
-      return
-    }
-
     const res = await fetch(`${API_URL}/api/users/login`, {
       method: 'POST',
       headers: {
