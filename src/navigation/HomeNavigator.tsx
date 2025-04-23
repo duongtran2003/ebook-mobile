@@ -24,7 +24,7 @@ export default function HomeNavigator() {
     <Stack.Navigator screenOptions={{ headerShown: false, gestureEnabled: true }}>
       <Stack.Screen options={{ title: 'Trang chủ' }} name="Home" component={HomeScreen} />
       <Stack.Screen
-        options={{ title: 'Chi tiết sách' }}
+        options={{ title: 'Chi tiết sách', headerShown: false }}
         name="BookDetail"
         component={ShowDetailBookScreen}
       />
